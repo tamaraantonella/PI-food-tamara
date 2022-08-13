@@ -8,5 +8,20 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    id: {
+      //id para generar totalmente unico
+      type: DataTypes.UUID,
+      primaryKey: true,
+    },
+    resumen: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    healthScore: {
+      type: DataTypes.FLOAT,
+    },
+    steps: {
+      type: DataTypes.TEXT,
+    }
   });
 };
