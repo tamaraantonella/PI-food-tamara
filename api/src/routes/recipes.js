@@ -140,4 +140,21 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.post('recipes', async (req, res) => {
+    const { name, summary, healthScore, steps, image } = req.body;
+    try {
+        if (name && summary && healthScore && steps && image) {
+            const recipe = await Recipe.create({
+                name,
+                summary,
+                healthScore,
+                steps,
+                image
+            })
+            return res.json(recipe);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+})
 module.exports= router
