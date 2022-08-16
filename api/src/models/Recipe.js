@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       primaryKey: true,
     },
-    resumen: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
