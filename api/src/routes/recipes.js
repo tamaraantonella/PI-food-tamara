@@ -78,7 +78,7 @@ router.get("/:id", async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-    });
+});
 
 router.post("/", async (req, res) => {
     const { name, summary, healthScore, steps, image,diets} = req.body
@@ -87,7 +87,10 @@ router.post("/", async (req, res) => {
     try {
         const data = { name, summary, healthScore, steps, image }
         const newRecipe = await Recipe.create(data)
-        await newRecipe.addDiet(diets)
+        //busco todas las dietas que coincidan con las que me llegaron y las asocio a la receta
+        //porque la idea es que la nueva receta, se relacione con las dietas que ya existen en la base de datos
+        let newDiets = await Diet.findAll({ where: { name: diets } })
+        newRecipe.addDiets(newDiets)
         return res.status(201).json(newRecipe)
     } catch (error) {
         console.error(error)
