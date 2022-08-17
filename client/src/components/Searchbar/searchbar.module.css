@@ -1,0 +1,26 @@
+.searchContainer{
+    width: 100%;
+    max-width: 400px;
+
+}
+.searchInput{
+    border: transparent;
+    padding: 10px;
+}
+
+.searchButton{
+    padding: 10px;
+    border-color: transparent;
+    border-width: .3px;
+    background-color: rgb(85, 68, 37);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.searchButton:hover{
+    background:rgb(202, 135, 46);
+    color: black;
+    cursor: pointer;
+}
+
+/* media queries */
