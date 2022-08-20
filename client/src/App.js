@@ -1,7 +1,8 @@
 import './App.css';
 import Landing from './components/LandingPage/Landing';
-import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './components/Home/Home';
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
           <Route exact path='/'>
             <Landing/>
         </Route>
-        <Route path='/'>
-          <Navbar/>
+        <Route path='/home'>
+          <Home/>
         </Route>
         </div>
       </BrowserRouter>

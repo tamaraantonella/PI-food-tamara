@@ -1,18 +1,21 @@
 .searchContainer{
-    width: 100%;
-    max-width: 400px;
+    width: 70%;
+    max-width: 500px;
+    border-radius: 10px;
+    background-color: rgba(202, 155, 90, 0.603);
 
 }
 .searchInput{
     border: transparent;
     padding: 10px;
+    background: transparent;
+    width: 70%;
 }
 
 .searchButton{
     padding: 10px;
     border-color: transparent;
-    border-width: .3px;
-    background-color: rgb(85, 68, 37);
+    background-color: transparent;
     color: white;
     transition: all 0.3s ease-in-out;
 }
@@ -22,5 +25,3 @@
     color: black;
     cursor: pointer;
 }
-
-/* media queries */

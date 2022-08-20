@@ -12,3 +12,11 @@ export function getRecipes() {
         })
     }
 }
+
+export function filterRecipes(payload) {
+    return {
+        type: 'FILTER_RECIPES',
+        payload
+    }
+
+}

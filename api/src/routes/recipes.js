@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
         }
         if (id.length < 8) {
             const recipe = await axios.get(
-                `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true`
+                `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
             );
             const recipeApi = recipe.data;
             let recipeInfo = {
