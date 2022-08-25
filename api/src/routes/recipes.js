@@ -23,13 +23,14 @@ router.get("/:id", async (req, res) => {
     try {
         //si id es mayor a 8, entonces es un id de db
         if (id.length > 8) {
-        const recipeDB = await Recipe.findByPk(id, {
-            include: {
-            model: Diet,
-            attributes: ["name"],
-            through: {
-                attributes: [],
-            },
+            
+            const recipeDB = await Recipe.findByPk(id, {
+                include: {
+                model: Diet,
+                attributes: ["name"],
+                through: {
+                    attributes: [],
+                },
             },
         });
         if (recipeDB) {
@@ -48,21 +49,17 @@ router.get("/:id", async (req, res) => {
         return res.status(404).json({ message: "No recipe found" });
         }
         if (id.length < 8) {
+            const newId=id.substring(1);
             const recipe = await axios.get(
-                `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true`
+                `https://api.spoonacular.com/recipes/${newId}/information?apiKey=${API_KEY}&addRecipeInformation=true`
             );
-            const recipeApi = recipe.data;
+            const recipeApi = recipe.data; 
             let recipeInfo = {
                 id: recipeApi.id,
                 name: recipeApi.title,
-                vegetarian: recipeApi.vegetarian,
-                vegan: recipeApi.vegan,
-                glutenFree: recipeApi.glutenFree,
-                dairyFree: recipeApi.dairyFree,
                 image: recipeApi.image,
                 summary: recipeApi.summary,
                 healthScore: recipeApi.healthScore,
-                score: recipeApi.spoonacularScore,
                 steps:
                 recipeApi.analyzedInstructions[0] &&
                 recipeApi.analyzedInstructions[0].steps

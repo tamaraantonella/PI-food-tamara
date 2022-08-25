@@ -7,6 +7,7 @@ export default function CreateRecipe() {
     const dispatch = useDispatch()
     const history = useHistory()
     const diets = useSelector(state => state.diets)
+    const [errors, setErrors]= useState({})
     const [input, setInput] = useState({
         name: '',
         summary: '',
@@ -21,6 +22,10 @@ export default function CreateRecipe() {
             ...input,
             [e.target.name]: e.target.value
         })
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }))
     }
     const handleCheck = (e) => {
         if(e.target.checked){
@@ -60,12 +65,25 @@ export default function CreateRecipe() {
         let error={}
         if(!input.name){
             error.name = 'Name is required'
+        } 
+        if(!input.summary){
+            error.summary = 'Summary is required'
+        } 
+        if(!input.steps){
+            error.steps = 'Steps are required'
+        } 
+        if(!input.image){
+            error.image = 'Image is required'
+        } 
+        if(input.healthScore < 0 || input.healthScore > 100){
+            error.healthScore = 'Healthscore must be between 0 and 100'
         }
+        return error
     }
     
     useEffect(() => {
         dispatch(getDiets())
-    },[])
+    },[dispatch])
     
     
     
@@ -76,23 +94,38 @@ export default function CreateRecipe() {
         <form action="">
             <div>
                 <label htmlFor="name">Name: </label>
-                <input type="text" name="name" id="" onClick={e=>handleChange(e)} value={input.name}/>
+                <input type="text" name="name" id="" onChange={e=>handleChange(e)} value={input.name}/>
+                {errors.name && (
+                    <p>{errors.name}</p>
+                )}
             </div>
             <div>
                 <label htmlFor="summary">Summary: </label>
-                <input type="text" name="summary" id="" onClick={e=>handleChange(e)} value={input.summary}/>
+                <input type="text" name="summary" id="" onChange={e=>handleChange(e)} value={input.summary}/>
+                {errors.summary && (
+                    <p>{errors.summary}</p>
+                )}
             </div>
             <div>
                 <label htmlFor="healthScore">HealthScore: </label>
-                <input type="number" name="healthScore" id="" onClick={e=>handleChange(e)} value={input.healthScore}/>
+                <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)} value={input.healthScore}/>
+                {errors.healthScore && (
+                    <p>{errors.healthScore}</p>
+                )}
             </div>
             <div>
                 <label htmlFor="steps">Steps: </label>
-                <input type="text" name="steps" id="" onClick={e=>handleChange(e)} value={input.steps}/>
+                <input type="text" name="steps" id="" onChange={e=>handleChange(e)} value={input.steps}/>
+                {errors.steps && (
+                    <p>{errors.steps}</p>
+                )}
             </div>
             <div>
                 <label htmlFor="image">URL Image: </label>
-                <input type="text" name="image" id="" onClick={e=>handleChange(e)} value={input.image}/>
+                <input type="text" name="image" id="" onChange={e=>handleChange(e)} value={input.image}/>
+                {errors.image && (
+                    <p>{errors.image}</p>
+                )}
             </div>
             <div>
                 <label htmlFor="diets">Diets: </label>

@@ -20,7 +20,7 @@ export default function Home() {
     const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
     //cuales son las recetas a generar de acuerdo a la pagina actual
     const currentRecipe= allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
-
+    
     const pagination = (pageNumber) => {
         setCurrentPage(pageNumber)
     }
@@ -53,6 +53,7 @@ export default function Home() {
                     return(
                         <Card
                             key={recipe.id}
+                            id={recipe.id}
                             image={recipe.image}
                             name={recipe.name}
                             healthScore={recipe.healthScore}

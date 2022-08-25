@@ -17,7 +17,7 @@ const getApiInfo = async () => {
             glutenFree: recipeItem.glutenFree,
             dairyFree: recipeItem.dairyFree,
             image: recipeItem.image,
-            idApi: recipeItem.id,
+            id: recipeItem.id,
             score: recipeItem.spoonacularScore,
             healthScore: recipeItem.healthScore,
             types: recipeItem.dishTypes?.map((element) => element),

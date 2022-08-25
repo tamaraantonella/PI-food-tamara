@@ -67,3 +67,20 @@ export function postRecipe(payload){
         }
     }
 }
+
+export function getDetail(id){
+    return function(dispatch) {
+      return fetch(`http://localhost:3001/recipes/${id}`)
+        .then(response => response.json())
+        .then(json => {
+          dispatch(
+            { type: "GET_DETAIL", 
+            payload: json });
+        });
+    };
+  }
+export function resetDetail (){
+    return{
+        type: 'RESET_DETAIL'
+    }
+}
