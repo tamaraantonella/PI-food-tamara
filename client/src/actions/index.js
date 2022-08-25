@@ -73,6 +73,7 @@ export function getDetail(id){
       return fetch(`http://localhost:3001/recipes/${id}`)
         .then(response => response.json())
         .then(json => {
+            
           dispatch(
             { type: "GET_DETAIL", 
             payload: json });

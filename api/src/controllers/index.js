@@ -42,16 +42,17 @@ const getApiInfo = async () => {
 //get recipes from db
 const getDBInfo = async () => {
     try {
-        const getDBinfo = await Recipe.findAll({
-        include: {
-            model: Diet,
-            attributes: ["name"],
-            through: {
-            attributes: [],
-            },
-        },
-        });
+            const getDBinfo = await Recipe.findAll({
+                include: {
+                    model: Diet,
+                    attributes: ["name"],
+                    through: {
+                    attributes: [],
+                    },
+                },
+            });
         let response = await getDBinfo?.map((recipe) => {
+
         return {
             id: recipe.id,
             name: recipe.name,

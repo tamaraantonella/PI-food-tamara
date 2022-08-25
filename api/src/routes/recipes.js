@@ -20,61 +20,15 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
-    try {
-        //si id es mayor a 8, entonces es un id de db
-        if (id.length > 8) {
-            
-            const recipeDB = await Recipe.findByPk(id, {
-                include: {
-                model: Diet,
-                attributes: ["name"],
-                through: {
-                    attributes: [],
-                },
-            },
-        });
-        if (recipeDB) {
-            const recipe = {
-                id: recipeDB.id,
-                name: recipeDB.name,
-                summary: recipeDB.summary,
-                score: recipeDB.score,
-                healthScore: recipeDB.healthScore,
-                image: recipeDB.image,
-                steps: recipeDB.steps,
-                diets: recipeDB.diets?.map((diet) => diet.name),
-            };
-            return res.json(recipe);
+    const recipesTotal = await getAllInfo()
+    const newId=id.substring(1)
+    
+    if(id){
+            let recipeId = await recipesTotal.filter((r) => r.id == newId);
+            recipeId.length
+            ? res.status(200).json(recipeId)
+            : res.status(404).send("Recipe not found");
         }
-        return res.status(404).json({ message: "No recipe found" });
-        }
-        if (id.length < 8) {
-            const newId=id.substring(1);
-            const recipe = await axios.get(
-                `https://api.spoonacular.com/recipes/${newId}/information?apiKey=${API_KEY}&addRecipeInformation=true`
-            );
-            const recipeApi = recipe.data; 
-            let recipeInfo = {
-                id: recipeApi.id,
-                name: recipeApi.title,
-                image: recipeApi.image,
-                summary: recipeApi.summary,
-                healthScore: recipeApi.healthScore,
-                steps:
-                recipeApi.analyzedInstructions[0] &&
-                recipeApi.analyzedInstructions[0].steps
-                    ? recipeApi.analyzedInstructions[0].steps
-                        .map((item) => item.step)
-                        .join("\n")
-                    : "",
-            };
-            if (recipeInfo) {
-                return res.json(recipeInfo);
-            }
-        }
-    } catch (error) {
-        console.error(error);
-    }
 });
 
 router.post("/", async (req, res) => {
