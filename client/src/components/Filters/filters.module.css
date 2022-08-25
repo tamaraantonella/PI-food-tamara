@@ -4,7 +4,12 @@
     background-color: rgba(202, 155, 90, 0.603);
     border: none;
     color: white;
-    width: 50%;
+    width: 80%;
     max-width: 200px;
     cursor: pointer;
+}
+.filterContainer{
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
 }

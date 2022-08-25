@@ -20,3 +20,50 @@ export function filterRecipes(payload) {
     }
 
 }
+
+export function orderByName(payload){
+    return{
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}
+export function orderByHealthscore(payload){
+    return{
+        type: 'ORDER_BY_HEALTHSCORE',
+        payload
+    }
+}
+
+export function searchByName(payload){
+    return async function(dispatch){
+        try {
+            var json = await axios.get('http://localhost:3001/recipes?name='+ payload)
+            return dispatch({
+                type: 'SEARCH_BY_NAME',
+                payload: json.data
+            })
+        }catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function getDiets (){
+    return async function(dispatch){
+        var diets = await axios.get('http://localhost:3001/diets', {})
+        return dispatch({
+            type: 'GET_DIETS',
+            payload: diets.data
+        })
+    }
+}
+
+export function postRecipe(payload){
+    return async function (){
+        var info = await axios.post('http://localhost:3001/recipes', payload)
+        return {
+            type: 'POST_RECIPE',
+            info
+        }
+    }
+}

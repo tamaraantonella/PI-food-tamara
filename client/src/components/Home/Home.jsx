@@ -10,10 +10,12 @@ import Pagination from '../Pagination/Pagination'
 
 export default function Home() {
     const dispatch = useDispatch()
+    const [order, setOrder] = useState("");
     //esto es lo mismo que hacer mapStateToProps
+
     const allRecipes = useSelector(state => state.recipes)
     const [currentPage, setCurrentPage] = useState(1)
-    const [recipesPerPage, setRecipesPerPage] = useState(9)
+    const recipesPerPage= 9
     const indexOfLastRecipe = currentPage * recipesPerPage
     const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
     //cuales son las recetas a generar de acuerdo a la pagina actual
@@ -31,20 +33,21 @@ export default function Home() {
     function handleClick(e) {
         e.preventDefault()
         dispatch(getRecipes())
+        setOrder("new Order")
     }
     return (
         <div className={s.homeContainer}>
             <Navbar/>
             <div className={s.homeFilter}>
                 <button onClick={e => handleClick(e)} className={s.button}>Show All</button>
-                <Filters/>
+                <Filters setCurrentPage={setCurrentPage} setOrder={setOrder}/>
             </div>
             <Pagination
                 recipesPerPage={recipesPerPage}
                 allRecipes={allRecipes.length}
                 pagination={pagination}
             />
-            {/* Renderizado de las cards */}
+            {/* Renderizado de las cards acorde a la pagina*/}
             <div className={s.homeList}>
             {currentRecipe && currentRecipe.map((recipe) => {
                     return(

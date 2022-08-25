@@ -1,42 +1,58 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import s from './filters.module.css'
-import { filterRecipes } from '../../actions/index'
-import { useDispatch, useSelector } from 'react-redux'
+import { filterRecipes, orderByName, orderByHealthscore} from '../../actions/index'
+import { useDispatch } from 'react-redux'
 
 
 
-export default function Filters() {
+export default function Filters({setCurrentPage, setOrder}) {
     const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        dispatch(filterRecipes())
-    }, [dispatch])
-
     function handleFilterDiet(e) {
         e.preventDefault()
         dispatch(filterRecipes(e.target.value))
+        setCurrentPage(1)
+    }
+    
+    function handleOrderByName (e){
+        e.preventDefault()
+        dispatch(orderByName(e.target.value))
+        setCurrentPage(1)
+        setOrder("Order" + e.target.value);
+    }
+
+    function handleOrderByHealthscore (e){
+        e.preventDefault()
+        dispatch(orderByHealthscore(e.target.value))
+        setCurrentPage(1)
+        setOrder("Order" + e.target.value);
     }
     return (
-        <div>
-            <select name="" id="" className={s.filter}>
+        <div className={s.filterContainer}>
+            <select name="" id="" className={s.filter} onChange={e=>handleOrderByName(e)}>
+                <option value="">Order by name</option>
                 <option value='asc'>Ascendant</option>
                 <option value='desc'>Descendant</option>
             </select>
             <select name="" id="" className={s.filter} onChange={e=>handleFilterDiet(e)}>
-                <option value='all'>All</option>
-                <option value='Gluten Free'>Gluten Free</option>
-                <option value='Ketogenic'>Ketogenic</option>
-                <option value='Vegetarian'>Vegetarian</option>
-                <option value='Lacto-Vegetarian'>Lacto-Vegetarian</option>
-                <option value='Ovo-Vegetarian'>Ovo-Vegetarian</option>
-                <option value='Vegan'>Vegan</option>
-                <option value='Pescetarian'>Pescetarian</option>
-                <option value='Paleo'>Paleo</option>
-                <option value='Primal'>Primal</option>
-                <option value='Low FODMAP'>Low FODMAP</option>
-                <option value='Whole30'>Whole30</option>
+                <option value='all'>All Diets</option>
+                <option value='glutenFree'>Gluten Free</option>
+                <option value='ketogenic'>Ketogenic</option>
+                <option value='vegetarian'>Vegetarian</option>
+                <option value='lacto ovo vegetarian'>Lacto-Ovo-Vegetarian</option>
+                <option value='vegan'>Vegan</option>
+                <option value='pescatarian'>Pescatarian</option>
+                <option value='paleolithic'>Paleo</option>
+                <option value='primal'>Primal</option>
+                <option value='whole 30'>Whole30</option>
+                <option value='dairyFree'>Dairy Free</option>
+            </select>
+            {/* filtrar por healthscore */}
+            <select className={s.filter} onChange={e=>handleOrderByHealthscore(e)}>
+            <option value="">Order by healthscore</option>
+                <option value='asc'>Ascendant HealthScore</option>
+                <option value='desc'>Descendant HealthScore</option>
             </select>
         </div>
     )
 }
+

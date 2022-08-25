@@ -1,0 +1,25 @@
+.cardContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 350px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    gap: 20px;
+}
+.cardTitle{
+    font-size: 1rem;
+    font-weight: bold;
+    width:80%;
+}
+.dietContainer{
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    width: 80%;
+    justify-content: center;
+}
