@@ -1,15 +1,22 @@
 .filter{
     border-radius: 10px;
     padding: 10px;
-    background-color: rgba(202, 155, 90, 0.603);
+    background-color: rgba(255, 255, 255, 0.603);
     border: none;
-    color: white;
+    color: rgb(46, 46, 46);
     width: 80%;
     max-width: 200px;
     cursor: pointer;
+    font-weight: bolder;
+    transition: all 0.3s ease-in-out;
+}
+.filter:hover{
+    color: rgb(255, 255, 255);
+    background: rgb(46, 46, 46);
 }
 .filterContainer{
     display: flex;
     justify-content: space-around;
     width: 60%;
 }
+/*  */

@@ -43,6 +43,7 @@ export default function Filters({setCurrentPage, setOrder}) {
                 <option value='pescatarian'>Pescatarian</option>
                 <option value='paleolithic'>Paleo</option>
                 <option value='primal'>Primal</option>
+                <option value='low fodmap'>Low Fodmap</option>
                 <option value='whole 30'>Whole30</option>
                 <option value='dairyFree'>Dairy Free</option>
             </select>

@@ -20,7 +20,7 @@ export default function Searchbar() {
 
   return (
     <div className={s.searchContainer} >
-      <input type="text" className={s.searchInput} placeholder='Search recipe by name...' onChange={e=>handleInputChange(e)} />
+      <input type="text" className={s.searchInput}  onChange={e=>handleInputChange(e)} />
       <button type='submit' className={s.searchButton} onClick={e=>handleSubmit(e)}>Search</button>
     </div>
   )
