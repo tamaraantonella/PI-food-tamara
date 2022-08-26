@@ -1,0 +1,13 @@
+.loaderContainer{
+    width: 100%;
+    height: 100vh;
+    background-image: url(../../assets/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader img{
+    width: 100px;
+    height: 100px;
+}

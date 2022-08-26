@@ -61,6 +61,7 @@ const getDBInfo = async () => {
             healthScore: recipe.healthScore,
             image: recipe.image,
             steps: recipe.steps,
+            createdInDb: recipe.createdInDb,
             diets:recipe.diets?.map((diet) => diet.name),
         };
         });

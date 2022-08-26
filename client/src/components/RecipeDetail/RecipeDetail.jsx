@@ -5,6 +5,7 @@ import { getDetail, resetDetail } from '../../actions/index'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import s from './recipeDetail.module.css'
+import Loading from '../Loading/Loading'
 
 export default function RecipeDetail(props) {
   let {id} = useParams()
@@ -58,7 +59,7 @@ export default function RecipeDetail(props) {
           </div>
           
           :
-          <div>Loading...</div>
+          <Loading/>
         }
     </div>
   )
