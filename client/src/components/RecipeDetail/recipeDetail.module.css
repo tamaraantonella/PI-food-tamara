@@ -1,6 +1,7 @@
 .detailContainer{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: fit-content;
     background-image: url('../../assets/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall.jpg');
     display: flex;
     justify-content: center;
@@ -9,6 +10,7 @@
 .detailBox{
     width:fit-content;
     min-width: 60%;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,6 +18,7 @@
     gap: 20px;
     padding: 25px;
     background-color: rgba(252, 252, 252, 0.801);
+    margin: 15px auto;
 }
 .detailHeader{
     width: 100%;
@@ -32,22 +35,14 @@
     align-self: flex-start;
     color: rgba(46, 46, 46, 0.911);
     font-weight: bold;
+    margin: 0 0 5px 0;
 }
 .detailMiddle{
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     width: 100%;
     height: fit-content;
-}
-.detailSteps{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    padding: 0 1rem;
-    height: 100%;
+    height: fit-content;
 }
 .detailSummary{
     display: flex;
@@ -55,8 +50,19 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
+    padding: 0 1rem;
+    height: 100%;
+    text-align: left;
+}
+.detailSteps{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
     padding: 1rem;
     height: 100%;
+    text-align: left;
 }
 .detailButton{
     padding: 10px;
@@ -71,4 +77,22 @@
 .detailButton:hover{
     background: rgba(94, 91, 91, 0.651);
     color: #fff;
+}
+.detailImg{
+    min-height: 300px;
+    width: 300px;
+}
+.detailImg img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.detailDiets{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 20px;
+    text-align: left;
+    
 }

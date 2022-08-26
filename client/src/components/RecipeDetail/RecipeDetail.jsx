@@ -29,18 +29,31 @@ export default function RecipeDetail(props) {
             </div>
             <p className={s.detailHealth}>HealthScore: {detail[0].healthScore}</p>
             <div className={s.detailMiddle}>
-              <img src={detail[0].image} alt="" />
-              <div className={s.detailSteps} >
-                <p>Steps</p>
-                <p>{detail[0].steps}</p>
+              <div className={s.detailImg}>
+                <img src={detail[0].image} alt="" />
+              </div>
+              <div className={s.detailDiets}>
+                <p className={s.detailHealth}>Diets</p>
+                {detail[0].diets?.map(item => {
+                  return(
+                    <p key={item.id} className={s.detailDiet}>
+                      ✔{item}
+                    </p>
+                  )
+                })}
               </div>
             </div>
-            <div className={s.detailSummary}>
-
-              <p>Summary:</p>
-              <div
-                  dangerouslySetInnerHTML={{__html: detail[0].summary}}
-                />
+            <div className={s.detailSummary} >
+                <p className={s.detailHealth}>Summary</p>
+                <div
+                    dangerouslySetInnerHTML={{__html: detail[0].summary}}
+                  />
+                
+              </div>
+            <div className={s.detailSteps}>
+              <p className={s.detailHealth}>Steps</p>
+              <p>{detail[0].steps}</p>
+              
             </div>
           </div>
           
