@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Link,useHistory} from 'react-router-dom'
 import { getDiets,postRecipe } from '../../actions/index'
 import { useDispatch, useSelector} from 'react-redux'
+import s from './createRecipe.module.css'
 
 export default function CreateRecipe() {
     const dispatch = useDispatch()
@@ -83,63 +84,67 @@ export default function CreateRecipe() {
     
     useEffect(() => {
         dispatch(getDiets())
-    },[dispatch])
-    
-    
+    },[dispatch])  
     
   return (
-    <div>
-        <Link to='/home'><button>Go back</button></Link>
-        <h1>Create your own recipe!</h1>
-        <form action="">
-            <div>
-                <label htmlFor="name">Name: </label>
-                <input type="text" name="name" id="" onChange={e=>handleChange(e)} value={input.name}/>
-                {errors.name && (
-                    <p>{errors.name}</p>
-                )}
+    <div className={s.createContainer}>
+        <div className={s.formContainer}>
+            <div className={s.formHeader}>
+                <h1 className={s.formTitle}>Create your own recipe</h1>
+                <Link to='/home'><button className={s.button}>Go back</button></Link>
             </div>
-            <div>
-                <label htmlFor="summary">Summary: </label>
-                <input type="text" name="summary" id="" onChange={e=>handleChange(e)} value={input.summary}/>
-                {errors.summary && (
-                    <p>{errors.summary}</p>
-                )}
-            </div>
-            <div>
-                <label htmlFor="healthScore">HealthScore: </label>
-                <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)} value={input.healthScore}/>
-                {errors.healthScore && (
-                    <p>{errors.healthScore}</p>
-                )}
-            </div>
-            <div>
-                <label htmlFor="steps">Steps: </label>
-                <input type="text" name="steps" id="" onChange={e=>handleChange(e)} value={input.steps}/>
-                {errors.steps && (
-                    <p>{errors.steps}</p>
-                )}
-            </div>
-            <div>
-                <label htmlFor="image">URL Image: </label>
-                <input type="text" name="image" id="" onChange={e=>handleChange(e)} value={input.image}/>
-                {errors.image && (
-                    <p>{errors.image}</p>
-                )}
-            </div>
-            <div>
-                <label htmlFor="diets">Diets: </label>
-                {diets?.map(function(diet){
-                    return(
-                        <div key={diet.id}>
-                            <label>{diet.name}</label>
-                            <input type="checkbox" name={diet.name} onClick={e=>handleCheck(e)}></input>
-                        </div>
-                    )
-                })}
-            </div>       
-    <button type='submit' onClick={e=>handleSubmit(e)}>Create recipe</button>
-        </form>
+            <form action="" className={s.form}>
+                <div className={s.inputBox}>
+                    <label htmlFor="name">Name </label>
+                    <input type="text" name="name" id="" onChange={e=>handleChange(e)} value={input.name}/>
+                    {errors.name && (
+                        <p>{errors.name}</p>
+                    )}
+                </div>
+                <div className={s.inputBox}>
+                    <label htmlFor="summary">Summary </label>
+                    <input type="text" name="summary" id="" onChange={e=>handleChange(e)} value={input.summary}/>
+                    {errors.summary && (
+                        <p>{errors.summary}</p>
+                    )}
+                </div>
+                <div className={s.inputBox}>
+                    <label htmlFor="healthScore">HealthScore </label>
+                    <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)} value={input.healthScore}/>
+                    {errors.healthScore && (
+                        <p>{errors.healthScore}</p>
+                    )}
+                </div>
+                <div className={s.inputBox}>
+                    <label htmlFor="steps">Steps </label>
+                    <input type="text" name="steps" id="" onChange={e=>handleChange(e)} value={input.steps}/>
+                    {errors.steps && (
+                        <p>{errors.steps}</p>
+                    )}
+                </div>
+                <div className={s.inputBox}>
+                    <label htmlFor="image">URL Image </label>
+                    <input type="text" name="image" id="" onChange={e=>handleChange(e)} value={input.image}/>
+                    {errors.image && (
+                        <p>{errors.image}</p>
+                    )}
+                </div>
+                <div className={s.dietsBox}>
+                    <label htmlFor="diets" className={s.dietTitle}>Diets </label>
+                    <div className={s.dietContainer}>
+                        {diets?.map(function(diet){
+                            return(
+                                <div key={diet.id} className={s.dietItem}>
+                                    <label>{diet.name}</label>
+                                    <input type="checkbox" name={diet.name} onClick={e=>handleCheck(e)}></input>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>       
+                <button className={s.buttonSubmit} type='submit' onClick={e=>handleSubmit(e)}>Create recipe</button>
+            </form>
+        </div>
     </div>
   )
 }

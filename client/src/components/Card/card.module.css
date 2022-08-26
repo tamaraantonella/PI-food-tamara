@@ -29,23 +29,25 @@
     flex-direction: column;
     justify-content: space-around;
     transition: all .3s ease-out .2s;
-    background: linear-gradient(rgba(17, 17, 17, 0.336) 10%, #000 100%);
+    background: linear-gradient(rgba(17, 17, 17, 0.356) 30%, #000 100%);
     
 }
 .healthScore{
     font-weight: 600;
     color:#fff;
-    background-color: rgb(36, 177, 118);
+    background-color: rgba(36, 177, 118, 0.61);
     width: fit-content;
     padding: 10px 20px;
     align-self: center;
+    border-radius: 20px;
 }
 .cardTitle{
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin: 0 0 20px;
     text-transform: uppercase;
     height: 50px;
+    text-shadow: 2px 2px 6px #0a070754;
 }
 .dietContainer{
     display: flex;
