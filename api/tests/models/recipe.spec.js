@@ -18,5 +18,17 @@ describe('Recipe model', () => {
         Recipe.create({ name: 'Milanesa a la napolitana' });
       });
     });
+    describe('summary', () => {
+      it('should throw an error if summary is null', (done) => {
+        Recipe.create({})
+          .then(() => done(new Error('It requires a valid summary')))
+          .catch(() => done());
+      });
+      it('should throw an error if summary has not alphanumeric characters ', (done) => {
+        Recipe.create({summary:'__hola +'})
+          .then(() => done(new Error('It requires a valid summary')))
+          .catch(() => done());
+      });
+    });  
   });
 });

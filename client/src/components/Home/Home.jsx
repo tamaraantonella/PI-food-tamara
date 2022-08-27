@@ -12,6 +12,7 @@ import s from './home.module.css'
 
 export default function Home() {
     const dispatch = useDispatch()
+    const diets = useSelector(state=>state.diets)
     // eslint-disable-next-line
     const [order, setOrder] = useState("");
     //esto es lo mismo que hacer mapStateToProps
@@ -22,6 +23,7 @@ export default function Home() {
     const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
     //cuales son las recetas a generar de acuerdo a la pagina actual
     const currentRecipe= allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
+    const [isActive,setIsActive] = useState(1)
     
     const pagination = (pageNumber) => {
         setCurrentPage(pageNumber)
@@ -38,13 +40,15 @@ export default function Home() {
             <div className={s.homeContainer}>
                 <Navbar/>
                 <div className={s.homeFilter}>
-                    <Filters setCurrentPage={setCurrentPage} setOrder={setOrder}  />
+                    <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} diets={diets} setIsActive={setIsActive} />
                 </div>
                 <Pagination
                     recipesPerPage={recipesPerPage}
                     allRecipes={allRecipes.length}
                     pagination={pagination}
                     setCurrentPage={setCurrentPage}
+                    setIsActive={setIsActive}
+                    isActive={isActive}
                 />
                 {/* Renderizado de las cards acorde a la pagina*/}
                 <div className={s.homeList}>

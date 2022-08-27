@@ -12,6 +12,8 @@ export default function RecipeDetail(props) {
   
   const dispatch = useDispatch()
   const detail = useSelector(state => state.detail)
+
+
   
   useEffect(() => {
     dispatch(getDetail(id))
@@ -26,6 +28,7 @@ export default function RecipeDetail(props) {
           <div className={s.detailBox}>
             <div className={s.detailHeader}>
               <Link to='/home'><button className={s.detailButton}>Go back</button></Link>
+              
               <h1 className={s.detailHeader_title}>{detail[0].name}</h1>
             </div>
             <p className={s.detailHealth}>HealthScore: {detail[0].healthScore}</p>

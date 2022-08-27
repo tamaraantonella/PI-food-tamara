@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export function getRecipes() {
     return async function (dispatch) {
         //aca conecto el backend con el frontend
@@ -80,6 +79,7 @@ export function getDetail(id){
         });
     };
   }
+  
 export function resetDetail (){
     return{
         type: 'RESET_DETAIL'

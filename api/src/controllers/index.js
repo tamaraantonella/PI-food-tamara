@@ -59,10 +59,13 @@ const createNewRecipe = async (req, res) => {
     }
 }
 
+
+
 module.exports = {
     getRecipes,
     loadAllDiets,
     getRecipeById, 
-    createNewRecipe
+    createNewRecipe,
+    
     
 }

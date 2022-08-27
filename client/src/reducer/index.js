@@ -83,6 +83,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           detail: ['']
         }
+      
     default:
         return state;
 }
