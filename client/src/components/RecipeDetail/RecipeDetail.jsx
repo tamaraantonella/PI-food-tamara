@@ -1,11 +1,11 @@
-
-import { useDispatch, useSelector} from 'react-redux'
 import React, {useEffect} from 'react'
 import { getDetail, resetDetail } from '../../actions/index'
-import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { Link } from 'react-router-dom'
-import s from './recipeDetail.module.css'
 import Loading from '../Loading/Loading'
+import s from './recipeDetail.module.css'
+import { useParams } from 'react-router-dom'
 
 export default function RecipeDetail(props) {
   let {id} = useParams()
@@ -39,9 +39,13 @@ export default function RecipeDetail(props) {
                   return(
                     <p key={item.id} className={s.detailDiet}>
                       ✔{item}
-                    </p>
+                    </p> 
                   )
                 })}
+                {detail[0].glutenFree && !detail[0].diets.includes('gluten free') && <p>✔gluten free</p>}
+                {detail[0].vegan && !detail[0].diets.includes('vegan') && <p>✔vegan</p>}
+                {detail[0].vegetarian && !detail[0].diets.includes('vegetarian') && <p>✔vegetarian</p>}
+                {detail[0].dairyFree && !detail[0].diets.includes('dairy free') && <p>✔dairy Free</p>}
               </div>
             </div>
             <div className={s.detailSummary} >

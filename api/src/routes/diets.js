@@ -1,15 +1,7 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router()
-const {Diet} = require('../db');
+const {loadAllDiets} = require ('../controllers/index')
 
-
-router.get('/', async (req, res) => {
-    try {
-        let diets = await Diet.findAll();
-        res.status(200).json(diets);
-    } catch (error){
-        res.status(400).send(error);
-    }
-})
+router.get('/', loadAllDiets)
 
 module.exports = router;

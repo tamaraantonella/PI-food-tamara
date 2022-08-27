@@ -17,26 +17,25 @@ function rootReducer(state = initialState, action) {
         allRecipes: action.payload
       }
       case "FILTER_RECIPES":
-        const allRecipes= state.allRecipes
-        const recipesApi= allRecipes.filter(recipe => !recipe.createdInDB)
-        const recipesDB= allRecipes.filter(recipe => recipe.createdInDB)
+        const listedRecipes= state.allRecipes
+        const recipesApi= listedRecipes.filter(recipe => !recipe.createdInDB)
+        const recipesDB= listedRecipes.filter(recipe => recipe.createdInDB)
         const filteredDB = recipesDB.filter(recipe => recipe.diets.includes(action.payload))
         const alternativeFilter = recipesApi.filter(recipe=>recipe[action.payload] || recipe.diets.includes(action.payload))
         if(action.payload==='gluten free') {
           const gluten = recipesApi.filter(recipe=> recipe['glutenFree'])
-          gluten && alternativeFilter.concat(gluten)
+          gluten.length && alternativeFilter.concat(gluten)
         }
         if(action.payload==='dairy free') {
           const dairy = recipesApi.filter(recipe=> recipe['dairyFree'])
-          dairy && alternativeFilter.concat(dairy)
+          dairy.length && alternativeFilter.concat(dairy)
         }
-         
         const filtered = alternativeFilter.concat(filteredDB)
-        console.log(filtered)
-      return {
-        ...state,
-        recipes: (action.payload === "default" ||  'all') ? allRecipes : filtered,
-      };
+        
+        return {
+          ...state,
+          recipes: (action.payload === 'all') ? listedRecipes : filtered,
+        };
       case "ORDER_BY_NAME":
         if (action.payload === "asc") state.recipes.sort((a,b) => a.name.localeCompare(b.name))
           else if (action.payload === 'desc') state.recipes.sort((a,b) => b.name.localeCompare(a.name))

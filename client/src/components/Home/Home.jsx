@@ -1,13 +1,14 @@
-import React from 'react'
-import s from './home.module.css'
-import { useState, useEffect } from 'react'
+import {getDiets, getRecipes} from '../../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
-import {getRecipes} from '../../actions/index'
-import Filters from '../Filters/Filters'
+import { useEffect, useState } from 'react'
+
 import Card from '../Card/Card'
+import Filters from '../Filters/Filters'
+import Loading from '../Loading/Loading'
 import Navbar from '../Navbar/Navbar'
 import Pagination from '../Pagination/Pagination'
-import Loading from '../Loading/Loading'
+import React from 'react'
+import s from './home.module.css'
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -28,6 +29,7 @@ export default function Home() {
     useEffect(() => {
         //lo mismo que hacer mapDispatchToProps
         dispatch(getRecipes())
+        dispatch(getDiets())
     },//este array  para que no se genere un loop infinito
         [dispatch])
  
@@ -36,13 +38,13 @@ export default function Home() {
             <div className={s.homeContainer}>
                 <Navbar/>
                 <div className={s.homeFilter}>
-                    
                     <Filters setCurrentPage={setCurrentPage} setOrder={setOrder}  />
                 </div>
                 <Pagination
                     recipesPerPage={recipesPerPage}
                     allRecipes={allRecipes.length}
                     pagination={pagination}
+                    setCurrentPage={setCurrentPage}
                 />
                 {/* Renderizado de las cards acorde a la pagina*/}
                 <div className={s.homeList}>
@@ -54,10 +56,16 @@ export default function Home() {
                                 image={recipe.image}
                                 name={recipe.name}
                                 healthScore={recipe.healthScore}
-                                diets={recipe.diets} />
+                                diets={recipe.diets}
+                                vegetarian= {recipe.vegetarian}
+                                vegan= {recipe.vegan}
+                                glutenFree= {recipe.glutenFree}
+                                dairyFree = {recipe.dairyFree} 
+      />
                         )
                     }) 
                 }
+                
                 </div>
             </div>
         )

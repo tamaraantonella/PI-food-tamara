@@ -25,22 +25,7 @@
     padding: 1rem;
     justify-content: center;
 }
-.button{
-    border-radius: 10px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.603);
-    border: none;
-    color: rgb(46, 46, 46);
-    width: 50%;
-    max-width: 200px;
-    cursor: pointer;
-    font-weight: bolder;
-    transition: all 0.3s ease-in-out;
-}
-.button:hover{
-    color: rgb(255, 255, 255);
-    background: rgb(46, 46, 46);
-}
+
 /* media queries */
 @media screen and (min-width: 768px) {
     .homeList{
@@ -51,18 +36,3 @@
         flex-direction: row;
     }
 }
-/* .filter{
-    border-radius: 10px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.603);
-    border: none;
-    color: rgb(46, 46, 46);
-    width: 80%;
-    max-width: 200px;
-    cursor: pointer;
-    font-weight: bolder;
-}
-.filter:hover{
-    color: rgb(255, 255, 255);
-    background: rgb(46, 46, 46);
-} */
