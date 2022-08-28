@@ -93,13 +93,28 @@
 .dietItem{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap:2px;
+    justify-content: flex-start;
+    gap:10px;
 }
 .dietItem label{
     text-transform: capitalize;
+    color:rgba(49, 49, 49, 0.747);
+    font-size: 14px;
     
 }
+.dietItem input{
+    
+    border:1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+}
+.dietItem input:checked + label{
+    font-weight: bold;
+    color:rgb(10, 10, 10);
+}
+input[type="checkbox"]:checked {
+    box-shadow: 0 0 0 3px rgb(77, 143, 230);
+    color: pink;
+  }
 .button{
     padding: 10px;
     border: transparent;
@@ -129,4 +144,36 @@
 .buttonSubmit:hover{
     color: rgba(78, 77, 77, 0.651);
     background: #fff;
+}
+
+.errorText{
+    color:rgba(155, 9, 9, 0.808);
+    font-size: 12px;
+    font-weight: bold;
+}
+.buttonDisabled{
+    background: rgba(59, 59, 59, 0.425);
+    color: #fff;
+    cursor: not-allowed;
+    padding: 10px;
+    border: transparent;
+}
+
+/* media queries */
+@media screen and (max-width: 768px){
+    .createContainer{
+        height: 100%;
+    }
+    .formContainer{
+        width: 90%;
+        padding: 25px 10px;
+        margin:15px 0;
+        border-radius: 5px;
+    }
+    .dietContainer{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin:14px 0;
+        gap: 10px;
+    }
 }

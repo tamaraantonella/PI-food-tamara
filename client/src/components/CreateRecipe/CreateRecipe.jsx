@@ -10,6 +10,7 @@ export default function CreateRecipe() {
     const history = useHistory()
     const diets = useSelector(state => state.diets)
     const [errors, setErrors]= useState({})
+    const [ableToSubmit, setAbleToSubmit]= useState(false)
     const [input, setInput] = useState({
         name: '',
         summary: '',
@@ -35,7 +36,11 @@ export default function CreateRecipe() {
         if(input.healthScore < 0 || input.healthScore > 100 ||input.healthScore[0] ==='0'){
             error.healthScore = 'Healthscore must be between 0 and 100'
         }
+        if(Object.getOwnPropertyNames(errors).length === 0){
+            setAbleToSubmit(true)
+        }
         return error
+        
     }
     
 
@@ -67,19 +72,26 @@ export default function CreateRecipe() {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(postRecipe(input))
-        alert('Recipe created')
-        setInput({
-            name: '',
-            summary: '',
-            healthScore: 0,
-            steps: '',
-            image: '',
-            diets:[]
-        })
-        //redirecciono a home con history
-        history.push('/home')
+        if(Object.getOwnPropertyNames(errors).length === 0) {
+            e.preventDefault()
+            dispatch(postRecipe(input))
+            setInput({
+                name: '',
+                summary: '',
+                healthScore: 0,
+                steps: '',
+                image: '',
+                diets:[]
+            })
+            alert('Recipe created successfully')
+            //redirecciono a home con history
+            history.push('/home')
+         }else{ (
+             alert('Please fill in all the fields'))
+             setInput({
+                 ...input
+                })
+            }
     }
     
 
@@ -99,37 +111,36 @@ export default function CreateRecipe() {
                     <label htmlFor="name">Name </label>
                     <input type="text" name="name" id="" onChange={e=>handleChange(e)} value={input.name}/>
                     {errors.name && (
-                        <p>{errors.name}</p>
+                        <p className={s.errorText}>{errors.name}</p>
                     )}
                 </div>
                 <div className={s.inputBox}>
                     <label htmlFor="summary">Summary </label>
                     <input type="text" name="summary" id="" onChange={e=>handleChange(e)} value={input.summary}/>
                     {errors.summary && (
-                        <p>{errors.summary}</p>
+                        <p className={s.errorText}>{errors.summary}</p>
                     )}
                 </div>
-                {//TODO: ARREGLAR HEALTH SCORE PARA INGRESAR UN MAXIMO 
-                }
+                
                 <div className={s.inputBox}>
                     <label htmlFor="healthScore">HealthScore </label>
                     <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)}  maxLength='15' value={input.healthScore}/>
                     {errors.healthScore && (
-                        <p>{errors.healthScore}</p>
+                        <p className={s.errorText} >{errors.healthScore}</p>
                     )}
                 </div>
                 <div className={s.inputBox}>
                     <label htmlFor="steps">Steps </label>
                     <input type="text" name="steps" id="" onChange={e=>handleChange(e)} value={input.steps}/>
                     {errors.steps && (
-                        <p>{errors.steps}</p>
+                        <p className={s.errorText} >{errors.steps}</p>
                     )}
                 </div>
                 <div className={s.inputBox}>
                     <label htmlFor="image">URL Image </label>
                     <input type="text" name="image" id="" onChange={e=>handleChange(e)} value={input.image}/>
                     {errors.image && (
-                        <p>{errors.image}</p>
+                        <p className={s.errorText} >{errors.image}</p>
                     )}
                 </div>
                 <div className={s.dietsBox}>
@@ -138,14 +149,14 @@ export default function CreateRecipe() {
                         {diets?.map(function(diet){
                             return(
                                 <div key={diet.id} className={s.dietItem}>
-                                    <label>{diet.name}</label>
                                     <input type="checkbox" name={diet.name} onClick={e=>handleCheck(e)}></input>
+                                    <label>{diet.name}</label>
                                 </div>
                             )
                         })}
                     </div>
                 </div>       
-                <button className={s.buttonSubmit} type='submit' onClick={e=>handleSubmit(e)}>Create recipe</button>
+                <button className={!ableToSubmit ? s.buttonSubmit : s.buttonDisabled} disabled={ableToSubmit} type='submit' onClick={e=>handleSubmit(e)}>Create recipe</button>
             </form>
         </div>
     </div>

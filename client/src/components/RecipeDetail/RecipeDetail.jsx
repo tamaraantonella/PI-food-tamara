@@ -7,12 +7,12 @@ import Loading from '../Loading/Loading'
 import s from './recipeDetail.module.css'
 import { useParams } from 'react-router-dom'
 
-export default function RecipeDetail(props) {
+export default function RecipeDetail() {
   let {id} = useParams()
   
   const dispatch = useDispatch()
   const detail = useSelector(state => state.detail)
-
+  
 
   
   useEffect(() => {
@@ -28,7 +28,6 @@ export default function RecipeDetail(props) {
           <div className={s.detailBox}>
             <div className={s.detailHeader}>
               <Link to='/home'><button className={s.detailButton}>Go back</button></Link>
-              
               <h1 className={s.detailHeader_title}>{detail[0].name}</h1>
             </div>
             <p className={s.detailHealth}>HealthScore: {detail[0].healthScore}</p>
