@@ -85,3 +85,9 @@ export function resetDetail (){
         type: 'RESET_DETAIL'
     }
 }
+
+export function resetRecipes(){
+    return{
+        type: 'RESET_RECIPES'
+    }
+}

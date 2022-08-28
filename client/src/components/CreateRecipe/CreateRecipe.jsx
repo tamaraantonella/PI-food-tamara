@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import {Link,useHistory} from 'react-router-dom'
-import { getDiets,postRecipe } from '../../actions/index'
-import { useDispatch, useSelector} from 'react-redux'
+import {Link, useHistory} from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import { getDiets, postRecipe } from '../../actions/index'
+import { useDispatch, useSelector } from 'react-redux'
+
 import s from './createRecipe.module.css'
 
 export default function CreateRecipe() {
@@ -12,12 +13,32 @@ export default function CreateRecipe() {
     const [input, setInput] = useState({
         name: '',
         summary: '',
-        healthScore: 0,
+        healthScore: '',
         steps: '',
         image: '',
         diets:[]
     })
+    function validate(input){
+        let error={}
+        if(!input.name || input.name.length<3){
+            error.name = 'Name is required and must be at least 3 characters long'
+        } 
+        if(!input.summary || input.summary.length<10){
+            error.summary = 'Summary is required and must be at least 10 characters long'
+        } 
+        if(!input.steps || input.steps.length<10){
+            error.steps = 'Steps are required and must be at least 10 characters long'
+        } 
+        if(!input.image || input.image.length<10){
+            error.image = 'URL image is required'
+        } 
+        if(input.healthScore < 0 || input.healthScore > 100 ||input.healthScore[0] ==='0'){
+            error.healthScore = 'Healthscore must be between 0 and 100'
+        }
+        return error
+    }
     
+
     const handleChange = (e) => {
         setInput({
             ...input,
@@ -31,7 +52,6 @@ export default function CreateRecipe() {
     const handleCheck = (e) => {
         if(e.target.checked){
             const existingDiets = input.diets.includes(e.target.name)
-            console.log(existingDiets)
             if(!existingDiets){
             setInput({
                 ...input,
@@ -62,26 +82,7 @@ export default function CreateRecipe() {
         history.push('/home')
     }
     
-    function validate(input){
-        let error={}
-        if(!input.name){
-            error.name = 'Name is required'
-        } 
-        if(!input.summary){
-            error.summary = 'Summary is required'
-        } 
-        if(!input.steps){
-            error.steps = 'Steps are required'
-        } 
-        if(!input.image){
-            error.image = 'Image is required'
-        } 
-        if(input.healthScore < 0 || input.healthScore > 100){
-            error.healthScore = 'Healthscore must be between 0 and 100'
-        }
-        return error
-    }
-    
+
     useEffect(() => {
         dispatch(getDiets())
     },[dispatch])  
@@ -108,9 +109,11 @@ export default function CreateRecipe() {
                         <p>{errors.summary}</p>
                     )}
                 </div>
+                {//TODO: ARREGLAR HEALTH SCORE PARA INGRESAR UN MAXIMO 
+                }
                 <div className={s.inputBox}>
                     <label htmlFor="healthScore">HealthScore </label>
-                    <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)} value={input.healthScore}/>
+                    <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)}  maxLength='15' value={input.healthScore}/>
                     {errors.healthScore && (
                         <p>{errors.healthScore}</p>
                     )}

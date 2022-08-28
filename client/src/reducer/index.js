@@ -34,7 +34,7 @@ function rootReducer(state = initialState, action) {
         
         return {
           ...state,
-          recipes: (action.payload === 'all') ? listedRecipes : filtered,
+          recipes: (action.payload === 'default') ? listedRecipes : filtered,
         };
       case "ORDER_BY_NAME":
         if (action.payload === "asc") state.recipes.sort((a,b) => a.name.localeCompare(b.name))
@@ -49,7 +49,7 @@ function rootReducer(state = initialState, action) {
         }
 
       case "ORDER_BY_HEALTHSCORE":
-        let sortedHealth = action.payload=== 'desc' ?
+        let sortedHealth = action.payload=== 'asc' ?
         state.recipes.sort(function(a,b){
           if(a.healthScore > b.healthScore) { return 1 }
           if(b.healthScore > a.healthScore) { return -1 }
@@ -82,6 +82,11 @@ function rootReducer(state = initialState, action) {
         return{
           ...state,
           detail: ['']
+        }
+      case "RESET_RECIPES":
+        return{
+          ...state,
+          recipes:[]
         }
       
     default:
