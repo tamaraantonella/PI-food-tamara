@@ -18,6 +18,11 @@ const recipeO = {
   steps:"comprar, cocinar en agua abundante y servir",
   diets:["vegetarian"]
 };
+const recipeIncomp ={
+  summary:"tipo de pasta con forma alargada. Los fideos pueden ser cortos, como el şehriye o el cabello de ángel, o bien largos y gruesos como los pici o los soba, igualmente largos pero más finos como los spaghetti, o extremadamente finos como los fideos de cristal.", 
+  healthScore: 10 , 
+  steps:"comprar, cocinar en agua abundante y servir",
+}
 describe('Recipe routes', () => {
   before(() => conn.authenticate()
   .catch((err) => {
@@ -36,9 +41,14 @@ describe('Recipe routes', () => {
     );
   });
   describe('POST recipes/', () => {
-    it('should get 200 status when created', () =>
+   it('should get 200 status when created', () =>
       agent.post('/recipes')
       .send(recipeO).expect(201).timeout(10000)
+    ); 
+    it('should get 404 status when created', () =>
+      agent.post('/recipes')
+      .send(recipeIncomp).expect(404).timeout(10000)
     );
   });  
+  
 });

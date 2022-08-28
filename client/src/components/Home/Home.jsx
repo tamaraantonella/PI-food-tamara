@@ -7,6 +7,7 @@ import Filters from '../Filters/Filters'
 import Loading from '../Loading/Loading'
 import Navbar from '../Navbar/Navbar'
 import Pagination from '../Pagination/Pagination'
+import PaginationMobile from '../Pagination/PaginationMobile'
 import React from 'react'
 import s from './home.module.css'
 
@@ -52,6 +53,7 @@ export default function Home() {
                     setIsActive={setIsActive}
                     isActive={isActive}
                 />
+                
                 {/* Renderizado de las cards acorde a la pagina*/}
                 <div className={s.homeList}>
                 {currentRecipe && currentRecipe.map((recipe) => {

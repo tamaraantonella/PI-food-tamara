@@ -36,3 +36,18 @@
     color: rgb(255, 255, 255);
     background: rgb(46, 46, 46);
 }
+
+/* media queries */
+@media screen and (max-width: 768px) {
+    .filterContainer{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap:10px;
+    }
+    .button{
+        width: 50%;
+        max-width: 200px;
+    }
+}

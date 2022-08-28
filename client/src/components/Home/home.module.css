@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
-    height: 100%;
+    height: fit-content;
     background-image:  url('../../assets/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall.jpg');
 }
 .homeList{
@@ -18,7 +18,7 @@
 }
 .homeFilter{
     display: flex;
-    height: 100px;
+    height: fit-content;
     max-height: fit-content;
     flex-direction: column;
     align-items: center;
@@ -34,6 +34,6 @@
         flex-wrap: wrap;
     }
     .homeFilter{
-        flex-direction: row;
+        height: 100px;
     }
 }
