@@ -20,15 +20,10 @@ export function filterRecipes(payload) {
 
 }
 
-export function orderByName(payload){
+
+export function sortRecipes(payload){
     return{
-        type: 'ORDER_BY_NAME',
-        payload
-    }
-}
-export function orderByHealthscore(payload){
-    return{
-        type: 'ORDER_BY_HEALTHSCORE',
+        type: 'SORT_RECIPES',
         payload
     }
 }

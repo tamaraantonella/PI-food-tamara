@@ -7,7 +7,6 @@ import Filters from '../Filters/Filters'
 import Loading from '../Loading/Loading'
 import Navbar from '../Navbar/Navbar'
 import Pagination from '../Pagination/Pagination'
-import PaginationMobile from '../Pagination/PaginationMobile'
 import React from 'react'
 import s from './home.module.css'
 

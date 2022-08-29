@@ -3,7 +3,8 @@ const initialState = {
   recipes: [],
   allRecipes: [],
   diets:[],
-  detail:[]
+  detail:[],
+  filtered:[]
   
 };
 
@@ -34,35 +35,38 @@ function rootReducer(state = initialState, action) {
         
         return {
           ...state,
+          filtered: (action.payload === 'default') ? listedRecipes : filtered,
           recipes: (action.payload === 'default') ? listedRecipes : filtered,
         };
-      case "ORDER_BY_NAME":
-        if (action.payload === "asc") state.recipes.sort((a,b) => a.name.localeCompare(b.name))
-          else if (action.payload === 'desc') state.recipes.sort((a,b) => b.name.localeCompare(a.name))
-        return {
-          ...state,
-        }
+
       case "SEARCH_BY_NAME": 
         return{
           ...state,
           recipes: action.payload
         }
 
-      case "ORDER_BY_HEALTHSCORE":
-        let sortedHealth = action.payload=== 'asc' ?
-        state.recipes.sort(function(a,b){
-          if(a.healthScore > b.healthScore) { return 1 }
-          if(b.healthScore > a.healthScore) { return -1 }
-          return 0
-        }) :
-        state.recipes.sort(function(a,b){
-          if(a.healthScore > b.healthScore) { return -1 }
-          if(b.healthScore > a.healthScore) { return 1 }
-          return 0
-        })
-        return {
+      case "SORT_RECIPES":
+        const sorted = state.filtered.length ? state.filtered : state.allRecipes
+        if (action.payload === "asc") (sorted.sort((a,b) => a.name.localeCompare(b.name)))
+        if(action.payload ==='desc') (sorted.sort((a,b) => b.name.localeCompare(a.name)))
+        if(action.payload === 'ascH') {
+          sorted.sort(function(a,b){
+            if(a.healthScore > b.healthScore) { return 1 }
+            if(b.healthScore > a.healthScore) { return -1 }
+            return 0
+          })
+        }
+        if(action.payload === 'descH') {
+          sorted.sort(function(a,b){
+            if(a.healthScore > b.healthScore) { return -1 }
+            if(b.healthScore > a.healthScore) { return 1 }
+            return 0
+          })
+        }
+        return{
           ...state,
-          recipes: sortedHealth
+          recipes: sorted
+          
         }
       case "POST_RECIPE":
         return{
@@ -86,6 +90,7 @@ function rootReducer(state = initialState, action) {
       case "RESET_RECIPES":
         return{
           ...state,
+          filtered:[],
           recipes:[]
         }
       

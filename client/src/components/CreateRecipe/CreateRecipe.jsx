@@ -33,7 +33,7 @@ export default function CreateRecipe() {
         if(!input.image || input.image.length<10){
             error.image = 'URL image is required'
         } 
-        if(input.healthScore < 0 || input.healthScore > 100 ||input.healthScore[0] ==='0'){
+        if(Number(input.healthScore) < 0 || Number(input.healthScore) > 100 ){
             error.healthScore = 'Healthscore must be between 0 and 100'
         }
         if(Object.getOwnPropertyNames(errors).length === 0){
