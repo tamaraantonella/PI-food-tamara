@@ -30,6 +30,7 @@ describe('Recipe routes', () => {
   }));
   beforeEach(() => Recipe.sync({ force: true })
     .then(() => Recipe.create(recipe)));
+  
   describe('GET /recipes/:id', () => {
     it('should return a recipe', ( )=>{
       agent.get('/recipes/a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11').expect(200).timeout(10000)

@@ -19,7 +19,6 @@ const getRecipes = async (req, res) => {
     const { name } = req.query;
     const info = await getAllInfo();
     if (name) {
-        //si busco garlic, me devuelve todas las recetas que contengan garlic, si no, solo me devuelve las recetas cuyo nombre sea unicamente garlic.
         let matchedRecipe = await info.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
         if (matchedRecipe.length) return res.json(matchedRecipe)
         return res.status(404).json({ message: "No recipes found" })

@@ -14,6 +14,7 @@ export default function Home() {
     const dispatch = useDispatch()
     const diets = useSelector(state=>state.diets)
     const allRecipes = useSelector(state => state.recipes)
+    const notFound = useSelector(state => state.notFound)
     // eslint-disable-next-line
     const [order, setOrder] = useState("");
     const [isActive,setIsActive] = useState(1)
@@ -55,6 +56,7 @@ export default function Home() {
                 
                 {/* Renderizado de las cards acorde a la pagina*/}
                 <div className={s.homeList}>
+                {notFound && <h1>No recipes found</h1>}
                 {currentRecipe && currentRecipe.map((recipe) => {
                         return(
                             <Card

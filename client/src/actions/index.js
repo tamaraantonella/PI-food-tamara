@@ -37,7 +37,7 @@ export function searchByName(payload){
                 payload: json.data
             })
         }catch (error) {
-            console.log(error)
+            alert('This recipe is not found')
         }
     }
 }

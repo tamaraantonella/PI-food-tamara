@@ -27,9 +27,6 @@ export default function CreateRecipe() {
         if(!input.summary || input.summary.length<10){
             error.summary = 'Summary is required and must be at least 10 characters long'
         } 
-        if(!input.steps || input.steps.length<10){
-            error.steps = 'Steps are required and must be at least 10 characters long'
-        } 
         if(!input.image || input.image.length<10){
             error.image = 'URL image is required'
         } 
@@ -132,9 +129,6 @@ export default function CreateRecipe() {
                 <div className={s.inputBox}>
                     <label htmlFor="steps">Steps </label>
                     <input type="text" name="steps" id="" onChange={e=>handleChange(e)} value={input.steps}/>
-                    {errors.steps && (
-                        <p className={s.errorText} >{errors.steps}</p>
-                    )}
                 </div>
                 <div className={s.inputBox}>
                     <label htmlFor="image">URL Image </label>

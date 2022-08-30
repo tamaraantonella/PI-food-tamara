@@ -4,7 +4,8 @@ const initialState = {
   allRecipes: [],
   diets:[],
   detail:[],
-  filtered:[]
+  filtered:[],
+  notFound:'',
   
 };
 
@@ -40,9 +41,11 @@ function rootReducer(state = initialState, action) {
         };
 
       case "SEARCH_BY_NAME": 
+        let recipeOk = action.payload      
         return{
           ...state,
-          recipes: action.payload
+          recipes: recipeOk,
+          
         }
 
       case "SORT_RECIPES":
