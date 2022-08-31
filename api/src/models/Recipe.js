@@ -31,6 +31,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
+      defaultValue:"https://www.trecebits.com/wp-content/uploads/2020/05/Cocina-800x445.jpg"
     },
     createdInDb: {
       type:DataTypes.BOOLEAN,

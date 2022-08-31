@@ -2,16 +2,44 @@ import axios from 'axios';
 
 export function getRecipes() {
     return async function (dispatch) {
-        //aca conecto el backend con el frontend
-        var json = await axios.get('http://localhost:3001/recipes', {
-        })
-        return dispatch({
-            type: 'GET_RECIPES',
-            payload: json.data
-        })
+        try {
+            //aca conecto el backend con el frontend
+            var json = await axios.get('http://localhost:3001/recipes', {
+            })
+            return dispatch({
+                type: 'GET_RECIPES',
+                payload: json.data
+            })
+        } catch (error) {
+            const errorMessage={error:error.message}
+            console.log("🚀 ~ file: index.js ~ line 15 ~ errorMessage", errorMessage)
+            return dispatch({
+                type: 'GET_RECIPES',
+                payload:errorMessage
+            })
+            
+        }
     }
 }
 
+export function getDiets (){
+    return async function(dispatch){
+        try {
+            var diets = await axios.get('http://localhost:3001/diets', {})
+            return dispatch({
+                type: 'GET_DIETS',
+                payload: diets.data
+            })
+        } catch (error) {
+            const errorMessage={error:error.message}
+            console.log("🚀 ~ file: index.js ~ line 34 ~ returnfunction ~ error", errorMessage)
+            return dispatch({
+                type: 'GET_DIETS',
+                payload:errorMessage
+            })
+        }
+    }
+}
 export function filterRecipes(payload) {
     return {
         type: 'FILTER_RECIPES',
@@ -37,27 +65,28 @@ export function searchByName(payload){
                 payload: json.data
             })
         }catch (error) {
-            alert('This recipe is not found')
+            const errorMessage={error:error.message}
+            return dispatch({
+                type: 'SEARCH_BY_NAME',
+                payload: errorMessage
+            })
         }
     }
 }
 
-export function getDiets (){
-    return async function(dispatch){
-        var diets = await axios.get('http://localhost:3001/diets', {})
-        return dispatch({
-            type: 'GET_DIETS',
-            payload: diets.data
-        })
-    }
-}
+
 
 export function postRecipe(payload){
     return async function (){
-        var info = await axios.post('http://localhost:3001/recipes', payload)
-        return {
-            type: 'POST_RECIPE',
-            info
+        try {
+            var info = await axios.post('http://localhost:3001/recipes', payload)
+            return {
+                type: 'POST_RECIPE',
+                info
+            }         
+        } catch (error) {
+            const errorMessage={error:error.message}
+            console.log(errorMessage)
         }
     }
 }
@@ -67,7 +96,6 @@ export function getDetail(id){
       return fetch(`http://localhost:3001/recipes/${id}`)
         .then(response => response.json())
         .then(json => {
-            
           dispatch(
             { type: "GET_DETAIL", 
             payload: json });

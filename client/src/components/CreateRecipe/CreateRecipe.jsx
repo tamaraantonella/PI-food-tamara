@@ -10,15 +10,16 @@ export default function CreateRecipe() {
     const history = useHistory()
     const diets = useSelector(state => state.diets)
     const [errors, setErrors]= useState({})
-    const [ableToSubmit, setAbleToSubmit]= useState(false)
+    const [ableToSubmit, setAbleToSubmit]= useState(true)
     const [input, setInput] = useState({
         name: '',
         summary: '',
-        healthScore: '',
+        healthScore: 0,
         steps: '',
         image: '',
         diets:[]
     })
+    //valido formulario
     function validate(input){
         let error={}
         if(!input.name || input.name.length<3){
@@ -27,15 +28,11 @@ export default function CreateRecipe() {
         if(!input.summary || input.summary.length<10){
             error.summary = 'Summary is required and must be at least 10 characters long'
         } 
-        if(!input.image || input.image.length<10){
-            error.image = 'URL image is required'
-        } 
-        if(Number(input.healthScore) < 0 || Number(input.healthScore) > 100 ){
+        if((input.healthScore) < 0 || (input.healthScore) > 100 ){
             error.healthScore = 'Healthscore must be between 0 and 100'
         }
-        if(Object.getOwnPropertyNames(errors).length === 0){
-            setAbleToSubmit(true)
-        }
+        (!error.name&&!error.summary && !error.healthScore) ?  setAbleToSubmit(false) : setAbleToSubmit(true)
+        
         return error
         
     }
@@ -70,6 +67,7 @@ export default function CreateRecipe() {
 
     const handleSubmit = (e) => {
         if(Object.getOwnPropertyNames(errors).length === 0) {
+
             e.preventDefault()
             dispatch(postRecipe(input))
             setInput({

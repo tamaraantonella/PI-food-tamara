@@ -35,7 +35,7 @@ const getApiInfo = async () => {
         return response;
         }
     } catch (error) {
-        console.error(error);
+        console.log("🚀 ~ file: recipesControllers.js ~ line 38 ~ getApiInfo ~ error", error)
         return [];
     }
 };
@@ -67,7 +67,8 @@ const getDBInfo = async () => {
         });
         return response;
     } catch (error) {
-        console.error(error);
+        console.log("🚀 ~ file: recipesControllers.js ~ line 70 ~ getDBInfo ~ error", error)
+        return [];
     }
     };
 
@@ -78,7 +79,8 @@ const getDBInfo = async () => {
             const infoTotal = apiInfo.concat(bdInfo);
             return infoTotal;
         } catch (error) {
-            console.error(error);
+            console.log("🚀 ~ file: recipesControllers.js ~ line 81 ~ getAllInfo ~ error", error)
+            
         }
     };
 
