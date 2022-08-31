@@ -19,6 +19,7 @@ const loadAllDiets = async (req,res) => {
 //receta por query (nombre)
 const getRecipes = async (req, res) => {
     const { name } = req.query;
+    
     try {
         const info = await getAllInfo();
         if (name) {
@@ -47,12 +48,20 @@ const getRecipeById = async (req, res) => {
         }
 }
 
+
 //crear receta
 const createNewRecipe = async (req, res) => {
     const { name, summary, healthScore, steps, image,diets} = req.body
     //como no sabemos como nos llega la informacion, siempre es bueno usar try catch, para evitar errores
+    healthScore=parseInt(healthScore)
+    //validaciones
     if (!summary || !name) return res.status(404).send('Falta enviar datos obligatorios')
     !diets ? diets=[''] : [...diets]
+    if(name.length > 100 || name.length < 3) return res.status(404).send('El nombre debe tener entre 3 y 100 caracteres')
+    if(summary.length > 500 || summary.length < 3) return res.status(404).send('El resumen debe tener entre 3 y 500 caracteres')
+    if(healthScore > 100 || healthScore < 0) return res.status(404).send('El score debe ser un numero entre 0 y 100')
+    if(typeof healthScore !== 'number') return res.status(404).send('El score debe ser un numero')
+    if(name.search(/[^{};@>!<]*$/g) !== 0) return res.status(404).send('El nombre no puede contener caracteres especiales')
     try {
         const data = { name, summary, healthScore, steps, image }
         const newRecipe = await Recipe.create(data)

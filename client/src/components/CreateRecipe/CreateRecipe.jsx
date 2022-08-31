@@ -22,8 +22,8 @@ export default function CreateRecipe() {
     //valido formulario
     function validate(input){
         let error={}
-        if(!input.name || input.name.length<3){
-            error.name = 'Name is required and must be at least 3 characters long'
+        if(!input.name || input.name.length<3 || input.name.search(/[^{};@>!<]*$/g) !== 0){
+            error.name = 'Name is required and must be at least 3 characters long and must not contain special characters'
         } 
         if(!input.summary || input.summary.length<10){
             error.summary = 'Summary is required and must be at least 10 characters long'
