@@ -30,7 +30,7 @@ const getRecipes = async (req, res) => {
         console.log("🚀 ~ file: index.js ~ line 24 ~ getRecipes ~ info", info)
         return res.json(info)
     } catch (error) {
-        console.log("🚀 ~ file: index.js ~ line 30 ~ getRecipes ~ error", error)
+        console.log("🚀 ~ file: index.js ~ line 33 ~ getRecipes ~ error", error)
         
     }
 }
@@ -39,9 +39,9 @@ const getRecipes = async (req, res) => {
 const getRecipeById = async (req, res) => {
     const { id } = req.params;
     const recipesTotal = await getAllInfo()
-    const newId=id.substring(1)
+    const newId=Number(id.substring(1))
     if(id){
-            let recipeId = await recipesTotal.filter((r) => r.id == newId);
+            let recipeId = await recipesTotal.filter((r) => r.id === newId);
             recipeId.length
             ? res.status(200).json(recipeId)
             : res.status(404).send("Recipe not found");
@@ -58,10 +58,10 @@ const createNewRecipe = async (req, res) => {
     if (!summary || !name) return res.status(404).send('Falta enviar datos obligatorios')
     !diets ? diets=[''] : [...diets]
     if(name.length > 100 || name.length < 3) return res.status(404).send('El nombre debe tener entre 3 y 100 caracteres')
+    if(name.search(/[^{};*@>!<]*$/g) !== 0) return res.status(404).send('El nombre no puede contener caracteres especiales')
     if(summary.length > 500 || summary.length < 3) return res.status(404).send('El resumen debe tener entre 3 y 500 caracteres')
     if(healthScore > 100 || healthScore < 0) return res.status(404).send('El score debe ser un numero entre 0 y 100')
     if(typeof healthScore !== 'number') return res.status(404).send('El score debe ser un numero')
-    if(name.search(/[^{};@>!<]*$/g) !== 0) return res.status(404).send('El nombre no puede contener caracteres especiales')
     try {
         const data = { name, summary, healthScore, steps, image }
         const newRecipe = await Recipe.create(data)
@@ -72,7 +72,7 @@ const createNewRecipe = async (req, res) => {
         newRecipe.addDiets(newDiets)
         return res.status(201).json(newRecipe)
     } catch (error) {
-        console.error(error)
+        console.log("🚀 ~ file: index.js ~ line 75 ~ createNewRecipe ~ error", error)
     }
 }
 

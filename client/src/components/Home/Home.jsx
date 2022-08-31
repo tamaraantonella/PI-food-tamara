@@ -40,10 +40,14 @@ export default function Home() {
         dispatch(getDiets())
         },//este array  para que no se genere un loop infinito, va a escuchar a la dependencia dispatch
         
-        [dispatch])
-        if(errorServer){
+    [dispatch])
+
+    
+    //lo que se va a renderizar
+    if(errorServer){
             return (
                 <div className={s.homeContainer}>
+                    <Navbar/>
                     <div className={s.errorCont}>
                         
                             <h1 className={s.errorTitle}>Server Error</h1>

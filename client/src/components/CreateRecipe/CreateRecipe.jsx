@@ -9,6 +9,7 @@ export default function CreateRecipe() {
     const dispatch = useDispatch()
     const history = useHistory()
     const diets = useSelector(state => state.diets)
+    const errorServer= useSelector(state => state.errorServer)
     const [errors, setErrors]= useState({})
     const [ableToSubmit, setAbleToSubmit]= useState(true)
     const [input, setInput] = useState({
@@ -37,7 +38,6 @@ export default function CreateRecipe() {
         
     }
     
-
     const handleChange = (e) => {
         setInput({
             ...input,
@@ -48,6 +48,7 @@ export default function CreateRecipe() {
             [e.target.name]: e.target.value
         }))
     }
+    
     const handleCheck = (e) => {
         if(e.target.checked){
             const existingDiets = input.diets.includes(e.target.name)
@@ -105,9 +106,7 @@ export default function CreateRecipe() {
                 <div className={s.inputBox}>
                     <label htmlFor="name">Name </label>
                     <input type="text" name="name" id="" onChange={e=>handleChange(e)} value={input.name}/>
-                    {errors.name && (
-                        <p className={s.errorText}>{errors.name}</p>
-                    )}
+                    {errors.name && ( <p className={s.errorText}>{errors.name}</p>)}
                 </div>
                 <div className={s.inputBox}>
                     <label htmlFor="summary">Summary </label>
@@ -138,14 +137,14 @@ export default function CreateRecipe() {
                 <div className={s.dietsBox}>
                     <label htmlFor="diets" className={s.dietTitle}>Diets </label>
                     <div className={s.dietContainer}>
-                        {diets?.map(function(diet){
+                        {!errorServer ? (diets?.map(function(diet){
                             return(
                                 <div key={diet.id} className={s.dietItem}>
                                     <input type="checkbox" name={diet.name} onClick={e=>handleCheck(e)}></input>
                                     <label>{diet.name}</label>
                                 </div>
                             )
-                        })}
+                        })): (<p className={s.errorText}>No diets found! Error: {errorServer}</p>)}
                     </div>
                 </div>       
                 <button className={!ableToSubmit ? s.buttonSubmit : s.buttonDisabled} disabled={ableToSubmit} type='submit' onClick={e=>handleSubmit(e)}>Create recipe</button>
