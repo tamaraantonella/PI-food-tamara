@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
+
 import s from './searchbar.module.css'
 import {searchByName} from '../../actions/index'
 import {useDispatch} from 'react-redux'
 
-
-export default function Searchbar() {
+export default function Searchbar({setShow}) {
     const dispatch = useDispatch()
     const [recipe, setRecipe] = useState('')
 
@@ -16,12 +16,16 @@ export default function Searchbar() {
       e.preventDefault()
       dispatch(searchByName(recipe))
       setRecipe('')
+      setShow('cargado')
+    }
+    function reset(){
+      setShow('cargado')
     }
 
   return (
-    <div className={s.searchContainer} >
-      <input type="text" className={s.searchInput}  onChange={e=>handleInputChange(e)} />
-      <button type='submit' className={s.searchButton} onClick={e=>handleSubmit(e)}>Search</button>
-    </div>
+    <form className={s.searchContainer} onSubmit={e=>handleSubmit(e)}>
+      <input type="text" className={s.searchInput} value={recipe} placeholder="search" onChange={e=>handleInputChange(e)} />
+      <button type='submit' className={s.searchButton} onClick={reset}>Search</button>
+    </form>
   )
 }

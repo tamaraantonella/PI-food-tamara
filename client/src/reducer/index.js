@@ -30,8 +30,8 @@ function rootReducer(state = initialState, action) {
         const dairy = recipesApi.filter(recipe=> recipe['dairyFree'])
         dairy.length && alternativeFilter.concat(dairy)
       }
-      const filtered = alternativeFilter.concat(filteredDB)
-      
+      const filtered = action.payload === 'default' ? listedRecipes : alternativeFilter.concat(filteredDB)
+      console.log(action.payload)
       return {
         ...state,
         filtered: (action.payload === 'default') ? listedRecipes : filtered,

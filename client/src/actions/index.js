@@ -41,6 +41,7 @@ export function getDiets (){
     }
 }
 export function filterRecipes(payload) {
+    console.log(payload)
     return {
         type: 'FILTER_RECIPES',
         payload
@@ -64,6 +65,7 @@ export function searchByName(payload){
                 type: 'SEARCH_BY_NAME',
                 payload: json.data
             })
+            
         }catch (error) {
             const errorMessage={error:error.message}
             return dispatch({

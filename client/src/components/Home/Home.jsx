@@ -77,6 +77,7 @@ export default function Home() {
                             setCurrentPage={setCurrentPage}
                             setIsActive={setIsActive}
                             isActive={isActive}
+                            currentPage={currentPage}
                             />
                             {/* Renderizado de las cards acorde a la pagina*/}
                             <div className={s.homeList}>
