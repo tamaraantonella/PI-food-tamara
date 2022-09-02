@@ -1,4 +1,4 @@
-import {getDiets, getRecipes} from '../../actions/index'
+import {getDiets, getRecipes, resetRecipes} from '../../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -38,8 +38,11 @@ export default function Home() {
         //lo mismo que hacer mapDispatchToProps
         dispatch(getRecipes())
         dispatch(getDiets())
-        },//este array  para que no se genere un loop infinito, va a escuchar a la dependencia dispatch
-        
+        //cuando se desmonte el componente se ejecuta el return
+        return ()=>{
+            dispatch(resetRecipes())
+        }},
+        //este array  para que no se genere un loop infinito, va a escuchar a la dependencia dispatch
     [dispatch])
 
     

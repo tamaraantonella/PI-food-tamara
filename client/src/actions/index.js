@@ -106,7 +106,10 @@ export function getDetail(id){
                 type: 'GET_DETAIL',
                 payload: info.data})
         } catch (error) {
-            
+            return dispatch({
+                type: 'GET_DETAIL',
+                payload: {error:error.message}
+            })
         }
     };
   }

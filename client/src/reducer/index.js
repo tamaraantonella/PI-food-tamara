@@ -72,14 +72,12 @@ function rootReducer(state = initialState, action) {
     case "GET_DIETS":
       return action.payload.error ? ({...state, errorServer:action.payload.error}) : ({...state, diets:action.payload, errorServer:''})
     case "GET_DETAIL":
-      return{
-        ...state,
-        detail: action.payload
-      }
+      return (action.payload.error) ? ({...state, notFound:action.payload}) : ({...state, detail:action.payload, notFound:''})
     case "RESET_DETAIL":
       return{
         ...state,
-        detail: ['']
+        detail: [''],
+        notFound:''
       }
     case "RESET_RECIPES":
       return{
@@ -90,7 +88,7 @@ function rootReducer(state = initialState, action) {
     case 'FILTER_ORIGIN':
       const filtradasPrevias = state.filtered.length ? state.filtered : state.allRecipes      
       const filtradasDB = filtradasPrevias.filter(recipe => recipe.createdInDb)     
-      if(action.payload === 'db' && filtradasDB.length ) {return ({...state, recipes:filtradasDB})}
+      if(action.payload === 'db' && filtradasDB.length ) {return ({...state, recipes:filtradasDB, notFound:''})}
       if(action.payload === 'db' && !filtradasDB.length ) {return ({...state, recipes:[], notFound:'No se encontraron recetas'})}
       return{
         ...state,
