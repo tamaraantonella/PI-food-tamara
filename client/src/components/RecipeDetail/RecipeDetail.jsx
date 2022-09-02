@@ -13,7 +13,6 @@ export default function RecipeDetail() {
   const dispatch = useDispatch()
   const detail = useSelector(state => state.detail)
   
-
   
   useEffect(() => {
     dispatch(getDetail(id))
@@ -24,8 +23,8 @@ export default function RecipeDetail() {
   
   return (
     <div className={s.detailContainer}> 
-      {detail[0]?
-          <div className={s.detailBox}>
+      {detail.length && detail[0]?
+          <div key={detail[0].id}className={s.detailBox}>
             <div className={s.detailHeader}>
               <Link to='/home'><button className={s.detailButton}>Go back</button></Link>
               <h1 className={s.detailHeader_title}>{detail[0].name}</h1>

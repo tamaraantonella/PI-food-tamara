@@ -21,9 +21,13 @@ module.exports = (sequelize) => {
     },
     healthScore: {
       type: DataTypes.FLOAT,
+      defaultValue: 0,
       validate:{
         min:0,
-        max:100
+        max:100,
+        isNumber(value){
+          if(isNaN(value)) throw new Error('healthScore debe ser un numero')
+        }
       }
     },
     steps: {

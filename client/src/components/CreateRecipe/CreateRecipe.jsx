@@ -23,15 +23,17 @@ export default function CreateRecipe() {
     //valido formulario
     function validate(input){
         let error={}
-        if(!input.name || input.name.length<3 || input.name.search(/[^{};@>!<]*$/g) !== 0){
-            error.name = 'Name is required and must be at least 3 characters long and must not contain special characters'
+        if(input.name.length >2 && ( input.name.length<3 || input.name.search(/[^{}*;@>!<]*$/g) !== 0)){
+            error.name = 'Name is required, must be at least 3 characters long and must not contain special characters'
         } 
-        if(!input.summary || input.summary.length<10){
+        if(input.summary.length >2 && (!input.summary || input.summary.length<10)){
             error.summary = 'Summary is required and must be at least 10 characters long'
         } 
-        if((input.healthScore) < 0 || (input.healthScore) > 100 ){
-            error.healthScore = 'Healthscore must be between 0 and 100'
+        if((input.healthScore) < 0 || (input.healthScore) > 100 || isNaN(Number(input.healthScore))){
+            error.healthScore = 'Healthscore must be between 0 and 100 and must be a number'
         }
+        if(input.image.length  && (input.image.slice(0,4) !== 'http' || input.image.slice(input.image.length - 3, input.image.length) !== 'jpg')) { error.image = 'Image must be a valid url'}
+        
         (!error.name&&!error.summary && !error.healthScore) ?  setAbleToSubmit(false) : setAbleToSubmit(true)
         
         return error
@@ -67,8 +69,13 @@ export default function CreateRecipe() {
     }
 
     const handleSubmit = (e) => {
+        if(!input.name || !input.summary) {
+            setInput({
+                ...input
+               })
+        return alert('Name and summary are required')
+    }
         if(Object.getOwnPropertyNames(errors).length === 0) {
-
             e.preventDefault()
             dispatch(postRecipe(input))
             setInput({
@@ -82,12 +89,7 @@ export default function CreateRecipe() {
             alert('Recipe created successfully')
             //redirecciono a home con history
             history.push('/home')
-         }else{ (
-             alert('Please fill in all the fields'))
-             setInput({
-                 ...input
-                })
-            }
+         }
     }
     
 
@@ -117,8 +119,8 @@ export default function CreateRecipe() {
                 </div>
                 
                 <div className={s.inputBox}>
-                    <label htmlFor="healthScore">HealthScore </label>
-                    <input type="number" name="healthScore" id="" onChange={e=>handleChange(e)}  maxLength='15' value={input.healthScore}/>
+                    <label htmlFor="healthScore">HealthScore 0-100</label>
+                    <input type="text" name="healthScore" id="" onChange={e=>handleChange(e)}  maxLength='15' value={input.healthScore}/>
                     {errors.healthScore && (
                         <p className={s.errorText} >{errors.healthScore}</p>
                     )}
@@ -128,7 +130,7 @@ export default function CreateRecipe() {
                     <input type="text" name="steps" id="" onChange={e=>handleChange(e)} value={input.steps}/>
                 </div>
                 <div className={s.inputBox}>
-                    <label htmlFor="image">URL Image </label>
+                    <label htmlFor="image">URL Image (jpg) </label>
                     <input type="text" name="image" id="" onChange={e=>handleChange(e)} value={input.image}/>
                     {errors.image && (
                         <p className={s.errorText} >{errors.image}</p>

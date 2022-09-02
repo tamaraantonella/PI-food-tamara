@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { filterRecipes, getRecipes, resetRecipes, sortRecipes } from '../../actions/index'
+import { filterOrigin, filterRecipes, getRecipes, resetRecipes, sortRecipes } from '../../actions/index'
 
 import s from './filters.module.css'
 import { useDispatch } from 'react-redux'
@@ -9,6 +9,7 @@ export default function Filters({setCurrentPage, setOrder,diets, setIsActive}) {
     //eslint-disable-next-line
     const [filter,setFilter]=useState('')
     const [sort, setSort] = useState('')
+    const [filterO, setFilterO] = useState('')
     function handleFilterDiet(e) {
         e.preventDefault()
         dispatch(filterRecipes(e.target.value))
@@ -25,7 +26,13 @@ export default function Filters({setCurrentPage, setOrder,diets, setIsActive}) {
         setOrder("Order" + e.target.value);
         setSort(e.target.value)  
     }
-
+    function handleFilterOrigin(e){
+        e.preventDefault()
+        setFilterO(e.target.value)
+        dispatch(filterOrigin(e.target.value))
+        setCurrentPage(1)
+        setIsActive(1)
+    }
     
     //handleClick para mostrar todas las recetas
     function handleClick(e) {
@@ -36,6 +43,7 @@ export default function Filters({setCurrentPage, setOrder,diets, setIsActive}) {
         setOrder("")
         setSort('')
         setFilter('')
+        setFilterO('')
         
     }
     
@@ -55,7 +63,11 @@ export default function Filters({setCurrentPage, setOrder,diets, setIsActive}) {
                 <option value='default' >All</option>
                 {diets.length>0 && diets.map((diet) => {return <option key = {diet.id}value={diet.name}>{diet.name}</option>})}
             </select>
-            
+            <select value={filterO} onChange={e=>handleFilterOrigin(e)} className={s.filter} >
+                <option hidden> Filter by origin </option>
+                <option value='default' >All</option>
+                <option value='db' >Created</option>
+            </select>
         </div>
     )
 }

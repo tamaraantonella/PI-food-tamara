@@ -22,7 +22,7 @@ export default function Card({ id, name, image, healthScore, diets, glutenFree, 
                         {vegetarian && !diets.includes('vegetarian') && <p>✔vegetarian</p>}
                         {dairyFree && !diets.includes('dairy free') && <p>✔dairy Free</p>}
                 </div>
-                <Link to={`/recipes/:${id}`}  key = {id} >
+                <Link to={`/recipes/${id}`}  key = {id} >
                     <button className={s.button}>Recipe detail</button>
                 </Link>
             </div>

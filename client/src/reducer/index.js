@@ -87,6 +87,16 @@ function rootReducer(state = initialState, action) {
         filtered:[],
         recipes:[]
       }
+    case 'FILTER_ORIGIN':
+      const filtradasPrevias = state.filtered.length ? state.filtered : state.allRecipes      
+      const filtradasDB = filtradasPrevias.filter(recipe => recipe.createdInDb)     
+      if(action.payload === 'db' && filtradasDB.length ) {return ({...state, recipes:filtradasDB})}
+      if(action.payload === 'db' && !filtradasDB.length ) {return ({...state, recipes:[], notFound:'No se encontraron recetas'})}
+      return{
+        ...state,
+        recipes:state.allRecipes
+      }
+      
       
     default:
         return state;

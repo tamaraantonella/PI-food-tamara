@@ -48,6 +48,11 @@ export function filterRecipes(payload) {
     }
 
 }
+export function filterOrigin(payload){
+    return {
+        type: 'FILTER_ORIGIN',
+        payload
+    }}
 
 
 export function sortRecipes(payload){
@@ -79,13 +84,13 @@ export function searchByName(payload){
 
 
 export function postRecipe(payload){
-    return async function (){
+    return async function (dispatch){
         try {
             var info = await axios.post('http://localhost:3001/recipes', payload)
-            return {
+            return dispatch({
                 type: 'POST_RECIPE',
                 info
-            }         
+            }   )      
         } catch (error) {
             const errorMessage={error:error.message}
             console.log(errorMessage)
@@ -94,14 +99,15 @@ export function postRecipe(payload){
 }
 
 export function getDetail(id){
-    return function(dispatch) {
-      return fetch(`http://localhost:3001/recipes/${id}`)
-        .then(response => response.json())
-        .then(json => {
-          dispatch(
-            { type: "GET_DETAIL", 
-            payload: json });
-        });
+    return async function(dispatch) {
+        try {
+            const info = await axios.get('http://localhost:3001/recipes/'+id)
+            return dispatch({
+                type: 'GET_DETAIL',
+                payload: info.data})
+        } catch (error) {
+            
+        }
     };
   }
   
