@@ -19,12 +19,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const port = process.env.BE_PORT || 3001;
 
 
-// Syncing all the models at once.
-//force:true, elimina todas las tablas y las crea de nuevo al levantar el servidor.
 conn.sync({ force: false }).then(() => {
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); 
-  });  
+  server.listen(port, () => {
+    console.log(`%s listening at ${port}`);
+  });
 });
